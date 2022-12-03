@@ -30,23 +30,27 @@ namespace Az204SampleAppVm.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Product> products = new List<Product>();
-            using var sqlcon = GetConnection();
-            var sqlstr = "Select ProductId, ProductName, Qnt from Products";
-            sqlcon.Open();
-            var cmd = sqlcon.CreateCommand();
-            cmd.CommandText = sqlstr;
-            var rdr = await cmd.ExecuteReaderAsync();
+            List<Product> products = new List<Product>(){
+            new Product {ProductId = 1, ProductName = "Mobiles", Qnt = 100},
+            new Product {ProductId = 2, ProductName = "Laptops", Qnt = 200},
+            new Product {ProductId = 3, ProductName = "Tabs", Qnt = 300}
+            };
+           // using var sqlcon = GetConnection();
+           // var sqlstr = "Select ProductId, ProductName, Qnt from Products";
+           // sqlcon.Open();
+           // var cmd = sqlcon.CreateCommand();
+           // cmd.CommandText = sqlstr;
+           // var rdr = await cmd.ExecuteReaderAsync();
 
-            while (rdr.Read())
-            {
-                products.Add(new Product
-                {
-                    ProductId = Convert.ToInt32(rdr["ProductId"]),
-                    ProductName = rdr["ProductName"].ToString(),
-                    Qnt = Convert.ToInt32(rdr["Qnt"])
-                });
-            }
+           // while (rdr.Read())
+            //{
+               // products.Add(new Product
+               // {
+                   // ProductId = Convert.ToInt32(rdr["ProductId"]),
+                    //ProductName = rdr["ProductName"].ToString(),
+                    //Qnt = Convert.ToInt32(rdr["Qnt"])
+                //});
+            //}
             return View(products);
         }
 
